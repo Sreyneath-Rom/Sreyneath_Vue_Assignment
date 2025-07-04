@@ -26,6 +26,9 @@
             <p class="text-pink-700">This is a description for card 3.</p>
         </div>
     </div>
+
 </template>
   
-<script setup></script>
+<script setup>
+
+</script>
