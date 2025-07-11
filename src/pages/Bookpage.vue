@@ -78,7 +78,7 @@ const filteredBooks = computed(() => {
     const searchLower = searchQuery.value.toLowerCase()
     const matchesSearch =
       book.title?.toLowerCase().includes(searchLower) ||
-      book.ISBN?.toLowerCase().includes(searchLower) ||
+      book.author_name?.toLowerCase().includes(searchLower) ||
       String(book.id).includes(searchLower)
     return matchesCategory && matchesSearch
   })
