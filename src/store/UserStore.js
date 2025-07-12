@@ -1,27 +1,38 @@
 import { defineStore } from 'pinia';
-import { ref, computed } from 'vue';
-import axios from 'axios';
+import { ref } from 'vue';
+import http from '@/api/axios';
 
 export const UserStore = defineStore('user', () => {
-    const users = ref([]);
-
-    const countUser = computed(() => {
-        return users.value.length;
+    const user = ref({
+        id: null,
+        name: '',
+        email: '',
+        // Add more default fields if needed
     });
 
-    async function fetchUsers() {
+    async function fetchCurrentUser() {
         try {
-            const response = await axios.get('http://127.0.0.1:8000/api/users');
-            // Adjust depending on your API response
-            users.value = response.data.users || response.data.data || [];
+            const response = await http.get('/api/user');
+            user.value = response.data.user || response.data; // adjust if needed
         } catch (error) {
-            console.error('Failed to fetch users:', error);
+            console.error('Failed to fetch current user:', error);
+        }
+    }
+
+    async function updateUser(updatedData) {
+        try {
+            const response = await http.put('/api/user', updatedData);
+            user.value = response.data.user || response.data;
+            alert('Profile updated successfully!');
+        } catch (error) {
+            console.error('Failed to update user:', error);
+            alert('Failed to update profile.');
         }
     }
 
     return {
-        users,
-        countUser,
-        fetchUsers,
+        user,
+        fetchCurrentUser,
+        updateUser,
     };
 });

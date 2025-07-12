@@ -8,6 +8,7 @@ import Authorpage from '@/pages/Authorpage.vue';
 import Settingspage from '@/pages/Settingspage.vue';
 
 const routes = [
+    
     {
         path: '/',
         redirect: '/login', // Redirect root path to login
