@@ -1,74 +1,80 @@
 <template>
-  <div class="flex flex-col items-center justify-center h-screen bg-gray-100">
-    <div class="bg-white p-8 rounded-lg shadow-md w-96">
-      <div class="flex items-center mb-6">
-        <img
-          src="https://cdn.oneesports.gg/cdn-data/2024/02/Anime_Luffy_smiling.jpg"
-          alt="User Avatar"
-          class="w-24 h-24 rounded-full mr-4 object-cover"
-        />
-        <div>
-          <h2 class="text-2xl font-semibold">{{ store.user.name }}</h2>
-          <p class="text-gray-600">{{ store.user.email }}</p>
-        </div>
-      </div>
-    </div>
+  <div class="max-w-4xl mx-auto p-6 mt-10 bg-white rounded-2xl shadow-md">
+    <h1 class="text-3xl font-bold mb-6 text-sky-700 text-center">Settings</h1>
 
-    <div class="bg-white p-8 rounded-lg shadow-md w-96 mt-6">
-      <h3 class="text-xl font-semibold mb-4">Edit Profile</h3>
-      <form @submit.prevent="handleUpdate">
-        <div class="mb-4">
-          <label for="name" class="block text-gray-700">Name</label>
-          <input
-            v-model="form.name"
-            type="text"
-            id="name"
-            class="w-full p-2 border border-gray-300 rounded"
-          />
-        </div>
-        <div class="mb-4">
-          <label for="email" class="block text-gray-700">Email</label>
-          <input
-            v-model="form.email"
-            type="email"
-            id="email"
-            class="w-full p-2 border border-gray-300 rounded"
-          />
-        </div>
+    <form @submit.prevent="saveSettings" class="space-y-6">
+      <!-- Username -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-2" for="username">Username</label>
+        <input
+          v-model="settings.username"
+          id="username"
+          type="text"
+          placeholder="Your username"
+          class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500"
+        />
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-2" for="email">Email</label>
+        <input
+          v-model="settings.email"
+          id="email"
+          type="email"
+          placeholder="your@email.com"
+          class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500"
+        />
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-2" for="password">New Password</label>
+        <input
+          v-model="settings.password"
+          id="password"
+          type="password"
+          placeholder="New password"
+          class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500"
+        />
+      </div>
+
+      <!-- Notifications Toggle -->
+      <div class="flex items-center gap-3">
+        <input
+          v-model="settings.notifications"
+          id="notifications"
+          type="checkbox"
+          class="w-5 h-5 text-sky-600 border-gray-300 rounded focus:ring-sky-500"
+        />
+        <label for="notifications" class="text-gray-700">Enable notifications</label>
+      </div>
+
+      <!-- Save Button -->
+      <div class="text-center">
         <button
           type="submit"
-          class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-colors"
+          class="bg-sky-600 text-white font-medium px-6 py-2 rounded-full hover:bg-sky-700 transition"
         >
-          Save Changes
+          Save Settings
         </button>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { UserStore } from '@/store/UserStore'
+import { ref } from 'vue'
 
-const store = UserStore()
-
-// Local form data
-const form = ref({
-  name: '',
-  email: ''
+const settings = ref({
+  username: '',
+  email: '',
+  password: '',
+  notifications: true,
 })
 
-// Fetch user on mount
-onMounted(async () => {
-  await store.fetchCurrentUser()
-  form.value.name = store.user.name
-  form.value.email = store.user.email
-})
-
-async function handleUpdate() {
-  await store.updateUser({
-    name: form.value.name,
-    email: form.value.email
-  })
+function saveSettings() {
+  alert('Settings saved!')
+  // You can replace with API call here
 }
 </script>

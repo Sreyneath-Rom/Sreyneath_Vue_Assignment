@@ -4,8 +4,10 @@ import axios from "axios";
 
 export const AuthorStore = defineStore("author", () => {
     const authors = ref([]);
+    const isLoading = ref(false);
 
     async function fetchAuthors() {
+        isLoading.value = true;
         try {
             const response = await axios.get("http://127.0.0.1:8000/api/authors");
             // Adjust structure depending on backend
@@ -13,6 +15,8 @@ export const AuthorStore = defineStore("author", () => {
         } catch (error) {
             console.error("Failed to fetch authors:", error);
             authors.value = []; // fallback so it won't stay undefined
+        } finally {
+            isLoading.value = false;
         }
     }
 
@@ -22,6 +26,7 @@ export const AuthorStore = defineStore("author", () => {
 
     return {
         authors,
+        isLoading,
         countAuthor,
         fetchAuthors,
     };

@@ -6,6 +6,8 @@ import Bookpage from '@/pages/Bookpage.vue';
 import Authorpage from '@/pages/Authorpage.vue';
 
 import Settingspage from '@/pages/Settingspage.vue';
+import Notifications from '@/components/Notifications.vue';
+import Account from '@/pages/Account.vue';
 
 const routes = [
     
@@ -48,6 +50,13 @@ const routes = [
         component: Settingspage,
         meta: { requiresAuth: true },
     },
+    {
+        path: '/account',
+        name: 'Account',
+        component:Account,
+        meta: { requiresAuth: true },
+    },
+    
     // Optional: catch-all route for 404 Not Found
     {
         path: '/:pathMatch(.*)*',

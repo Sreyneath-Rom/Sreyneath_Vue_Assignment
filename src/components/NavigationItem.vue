@@ -7,7 +7,6 @@
       : 'hover:border-yellow-600 hover:text-sky-500 text-sky-600'"
   >
     <span
-      v-if="item.icon"
       class="material-symbols-outlined transition-colors duration-300"
       :class="isActive ? 'text-yellow-600' : 'text-sky-600'"
     >
@@ -18,21 +17,14 @@
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router'
-import { computed } from 'vue'
+import { useRoute } from 'vue-router';
+import { computed } from 'vue';
 
 const props = defineProps({
-  item: {
-    type: Object,
-    required: true
-  },
-  isIcon: {
-    type: Boolean,
-    default: false
-  }
-})
+  item: { type: Object, required: true },
+  isIcon: { type: Boolean, default: false },
+});
 
-const route = useRoute()
-
-const isActive = computed(() => route.path === props.item.path)
+const route = useRoute();
+const isActive = computed(() => route.path === props.item.path);
 </script>
